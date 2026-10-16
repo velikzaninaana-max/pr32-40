@@ -99,6 +99,12 @@
     <Compile Include="order_placement.Designer.cs">
       <DependentUpon>order_placement.cs</DependentUpon>
     </Compile>
+    <Compile Include="order_processing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="order_processing.Designer.cs">
+      <DependentUpon>order_processing.cs</DependentUpon>
+    </Compile>
     <Compile Include="order_review.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="order_placement.resx">
       <DependentUpon>order_placement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="order_processing.resx">
+      <DependentUpon>order_processing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="order_review.resx">
       <DependentUpon>order_review.cs</DependentUpon>

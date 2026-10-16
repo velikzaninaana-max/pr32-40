@@ -23,7 +23,7 @@ namespace pr32_34
         DateTime delivery;
         int currentRowIndex = -1;
         string fileName = Directory.GetCurrentDirectory() + @"\temp\rep.docx";
-        string OrderDetailsDate, OrderDetailsDeliveryDate, OrderDetailsPickupPoint, OrderDetailsCode;
+        string OrderDetailsDate, OrderDetailsDeliveryDate, PickUpPointName, OrderDetailsCode;
         int OrderDetailsID;
         public order_review()
         {
@@ -268,32 +268,44 @@ namespace pr32_34
             cmd.CommandText = cmdOrderProduct.Substring(0, cmdOrderProduct.Length - 1);
             int res = cmd.ExecuteNonQuery();
             MessageBox.Show("Заказ сформирован", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadOrderDetails(OrderDetailsID);
+
+            //для талона word
+            cmd.CommandText = cmdOrder;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "SELECT LAST_INSERT_ID();";
+            int newOrderDetailsID = Convert.ToInt32(cmd.ExecuteScalar());
+            LoadOrderDetails(newOrderDetailsID);
             talon();
+
             con.Close();
             MyClass.Mypr37.Clear();
             this.Close();
         }
         void LoadOrderDetails(int OrderDetailsID)
         {
-            string productCmd = @"SELECT OrderDetailsID, OrderDetailsDate, OrderDetailsDeliveryDate, OrderDetailsPickupPoint, OrderDetailsCode FROM orderdetails;";
+            string productCmd = @"SELECT OrderDetailsDate,
+                                         OrderDetailsDeliveryDate,
+                                         PickUpPointName,
+                                         OrderDetailsCode
+                                  FROM orderdetails
+                                  INNER JOIN pickuppoint ON OrderDetailsPickupPoint = PickUpPointID
+                                  WHERE OrderDetailsID = @OrderDetailsID;";
             MySqlConnection con = new MySqlConnection(new MySqlConnectionStringBuilder(config.con()) { Database = dbName }.ConnectionString);
-            con.Open();
             MySqlCommand cmd = new MySqlCommand(productCmd, con);
             cmd.Parameters.AddWithValue("@OrderDetailsID", OrderDetailsID);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-
-            if (!reader.Read())
+            con.Open();
+            using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                MessageBox.Show("Заказ не найден.");
-                return;
+                if (!reader.Read())
+                {
+                    MessageBox.Show("Заказ не найден.");
+                    return;
+                }
+                OrderDetailsDate = Convert.ToString(reader["OrderDetailsDate"]);
+                OrderDetailsDeliveryDate = Convert.ToString(reader["OrderDetailsDeliveryDate"]);
+                PickUpPointName = Convert.ToString(reader["PickUpPointName"]);
+                OrderDetailsCode = Convert.ToString(reader["OrderDetailsCode"]);
             }
-
-            OrderDetailsDate = Convert.ToString(reader["OrderDetailsDate"]);
-            OrderDetailsDeliveryDate = Convert.ToString(reader["OrderDetailsDeliveryDate"]);
-            OrderDetailsPickupPoint = Convert.ToString(reader["OrderDetailsPickupPoint"]);
-            OrderDetailsCode = Convert.ToString(reader["OrderDetailsCode"]);
         }
         void talon()
         {
@@ -312,7 +324,7 @@ namespace pr32_34
 
                 ReplaceWord("{OrderDetailsDate}", OrderDetailsDate, wordDocument);
                 ReplaceWord("{OrderDetailsDeliveryDate}", OrderDetailsDeliveryDate, wordDocument);
-                ReplaceWord("{OrderDetailsPickupPoint}", OrderDetailsPickupPoint, wordDocument);
+                ReplaceWord("{PickUpPointName}", PickUpPointName, wordDocument);
                 ReplaceWord("{OrderDetailsCode}", OrderDetailsCode, wordDocument);
 
                 wordApp.Visible = true;

@@ -38,5 +38,13 @@ namespace pr32_34
             order_placement.ShowDialog();
             this.Visible = true;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            order_processing order_processing = new order_processing();
+            this.Visible = false;
+            order_processing.ShowDialog();
+            this.Visible = true;
+        }
     }
 }
