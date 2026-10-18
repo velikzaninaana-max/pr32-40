@@ -93,6 +93,12 @@
     <Compile Include="nastroiki.Designer.cs">
       <DependentUpon>nastroiki.cs</DependentUpon>
     </Compile>
+    <Compile Include="order_composition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="order_composition.Designer.cs">
+      <DependentUpon>order_composition.cs</DependentUpon>
+    </Compile>
     <Compile Include="order_placement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="nastroiki.resx">
       <DependentUpon>nastroiki.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="order_composition.resx">
+      <DependentUpon>order_composition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="order_placement.resx">
       <DependentUpon>order_placement.cs</DependentUpon>
