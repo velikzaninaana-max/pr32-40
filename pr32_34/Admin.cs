@@ -12,6 +12,7 @@ namespace pr32_34
 {
     public partial class Admin : Form
     {
+        config config = new config();
         public Admin(string AdminFullName)
         {
             InitializeComponent();
@@ -45,6 +46,30 @@ namespace pr32_34
             this.Visible = false;
             order_processing.ShowDialog();
             this.Visible = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.Description = "Выберите папку для резервной копии";
+
+                if (dialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    string backupPath = BackupService.CreateBackup(
+                        config.con(), // замените на вашу строку подключения
+                        dialog.SelectedPath);
+
+                    MessageBox.Show("Резервная копия создана:\n" + backupPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось создать резервную копию: " + ex.Message);
+                }
+            }
         }
     }
 }

@@ -127,6 +127,15 @@ namespace pr32_34
 
                                 this.Hide();
                                 MessageBox.Show($"Добро пожаловать, {MyClass.role} {MyClass.fio}","Успешный вход", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                string backupRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups");
+                                try
+                                {
+                                    string backupPath = BackupService.CreateBackup(config.con(), backupRoot);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Не удалось создать резервную копию: " + ex.Message);
+                                }
                                 switch (roleId)
                                 {
                                     case "1":
@@ -145,6 +154,9 @@ namespace pr32_34
                                         break;
                                 }
                                 this.Show();
+
+                                
+
                             }
                             else
                             {

@@ -22,7 +22,11 @@ namespace pr32_34
         string orderSql = @"SELECT
                             od.OrderDetailsID,
                             od.OrderDetailsCode,
-                            CONCAT(u.UserSurname, ' ', u.UserName, ' ', u.UserPatronymic) AS fio,
+                            CONCAT(' ',
+                            CONCAT(LEFT(u.UserSurname, FLOOR(CHAR_LENGTH(u.UserSurname) / 2)),
+                            REPEAT('*', CEIL(CHAR_LENGTH(u.UserSurname) / 2))), 
+                            CONCAT(LEFT(u.UserName, 1), '.'),
+                            CONCAT(LEFT(u.UserPatronymic, 1), '.')) AS fio,
                             od.OrderDetailsStatus AS 'Статус заказа',
                             od.OrderDetailsDate AS 'Дата заказа',
                             od.OrderDetailsDeliveryDate AS 'Дата доставки',
@@ -207,8 +211,13 @@ namespace pr32_34
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int orderDetailsId = 0;
-            order_composition order_composition = new order_composition();
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Сначала выберите заказ.");
+                return;
+            }
+            int orderDetailsId = Convert.ToInt32(dataGridView1.CurrentRow.Cells["OrderDetailsID"].Value);
+            order_composition order_composition = new order_composition(orderDetailsId);
             order_composition.ShowDialog();
             FillData();
         }

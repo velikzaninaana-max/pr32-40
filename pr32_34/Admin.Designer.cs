@@ -33,13 +33,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(255)))), ((int)(((byte)(102)))));
             this.button3.Font = new System.Drawing.Font("Comic Sans MS", 12F);
-            this.button3.Location = new System.Drawing.Point(12, 128);
+            this.button3.Location = new System.Drawing.Point(12, 101);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(317, 55);
             this.button3.TabIndex = 8;
@@ -51,7 +52,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(255)))), ((int)(((byte)(102)))));
             this.button2.Font = new System.Drawing.Font("Comic Sans MS", 12F);
-            this.button2.Location = new System.Drawing.Point(12, 191);
+            this.button2.Location = new System.Drawing.Point(12, 164);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(317, 55);
             this.button2.TabIndex = 7;
@@ -75,7 +76,7 @@
             // 
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(255)))), ((int)(((byte)(102)))));
             this.button5.Font = new System.Drawing.Font("Comic Sans MS", 12F);
-            this.button5.Location = new System.Drawing.Point(12, 252);
+            this.button5.Location = new System.Drawing.Point(12, 225);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(317, 55);
             this.button5.TabIndex = 10;
@@ -94,11 +95,24 @@
             this.label1.Text = "Фаимлия Имя Отчество";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
+            this.button4.Font = new System.Drawing.Font("Comic Sans MS", 12F);
+            this.button4.Location = new System.Drawing.Point(11, 286);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(317, 42);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Создать резервную копию";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 450);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
@@ -117,5 +131,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button4;
     }
 }
